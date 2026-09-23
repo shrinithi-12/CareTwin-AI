@@ -12,7 +12,7 @@ The system allows authorized staff to manage patient records, record clinical vi
 - Recurring complaints
 - Follow-up dates
 
-The extracted information is presented as an **AI Care State** for human verification. Verified follow-up information can be converted into a **Future Care Thread**, connecting the current visit with the patient's next care step.
+The extracted information is presented as an AI Care State for human verification. Verified follow-up information can be converted into a Future Care Thread, connecting the current visit with the patient's next care step.
 
 CareTwin AI is an assistive prototype. It does not diagnose diseases, prescribe medicines, or replace healthcare professionals.
 
@@ -54,11 +54,11 @@ The system analyzes a clinical visit note and extracts documented continuity sig
 3. Follow-up intentions
 4. Recurring complaints
 
-The extracted information is displayed as an **AI Care State**.
+The extracted information is displayed as an AI Care State.
 
 A healthcare staff member reviews and verifies the extracted information before it is accepted as part of the patient's record.
 
-Documented follow-up intentions can then be represented as **Future Care Threads**, helping connect the current visit with the patient's next care step.
+Documented follow-up intentions can then be represented as Future Care Threads, helping connect the current visit with the patient's next care step.
 
 ### Core Workflow
 
@@ -134,7 +134,7 @@ This allows the AI component to be developed or improved independently from the 
 
 ## AI Approach
 
-The current prototype uses a lightweight **rule-based NLP approach**.
+The current prototype uses a lightweight rule-based NLP approach.
 
 It does not use a pretrained large language model or external generative AI API.
 
@@ -221,7 +221,7 @@ The FastAPI service performs the care-continuity text extraction.
 
 Screenshots
 
-Screenshots of the developed application pages are provided below.
+The following screenshots show the developed application pages.
 
 Login Page
 
@@ -238,8 +238,6 @@ AI Care State
 Visit History
 
 Future Care Threads
-
-Note: Add the corresponding screenshots to the screenshots folder using the filenames above.
 
 Project Structure
 CareTwin_AI_Secure_fixed_v2/
