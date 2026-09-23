@@ -1,0 +1,92 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.caretwin:caretwin-backend >--------------------
+[INFO] Building caretwin-backend 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.5.4:run (default-cli) > test-compile @ caretwin-backend >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ caretwin-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ caretwin-backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ caretwin-backend ---
+[INFO] skip non existing resourceDirectory D:\CareTwin_AI_Secure_fixed_v2\backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.14.0:testCompile (default-testCompile) @ caretwin-backend ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] <<< spring-boot:3.5.4:run (default-cli) < test-compile @ caretwin-backend <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.5.4:run (default-cli) @ caretwin-backend ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.4)
+
+2026-09-23T12:17:43.942+05:30  INFO 32584 --- [caretwin-backend] [           main] com.caretwin.CareTwinApplication         : Starting CareTwinApplication using Java 21.0.11 with PID 32584 (D:\CareTwin_AI_Secure_fixed_v2\backend\target\classes started by Praveen in D:\CareTwin_AI_Secure_fixed_v2\backend)
+2026-09-23T12:17:43.944+05:30  INFO 32584 --- [caretwin-backend] [           main] com.caretwin.CareTwinApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-09-23T12:17:45.131+05:30  INFO 32584 --- [caretwin-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-09-23T12:17:45.144+05:30  INFO 32584 --- [caretwin-backend] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-23T12:17:45.144+05:30  INFO 32584 --- [caretwin-backend] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.43]
+2026-09-23T12:17:45.190+05:30  INFO 32584 --- [caretwin-backend] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-09-23T12:17:45.190+05:30  INFO 32584 --- [caretwin-backend] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1203 ms
+2026-09-23T12:17:45.429+05:30  INFO 32584 --- [caretwin-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-09-23T12:17:45.533+05:30  INFO 32584 --- [caretwin-backend] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.sqlite.jdbc4.JDBC4Connection@66223d94
+2026-09-23T12:17:45.533+05:30  INFO 32584 --- [caretwin-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-09-23T12:17:45.573+05:30  INFO 32584 --- [caretwin-backend] [           main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2026-09-23T12:17:45.573+05:30  WARN 32584 --- [caretwin-backend] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-09-23T12:17:45.658+05:30  WARN 32584 --- [caretwin-backend] [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'securityFilterChain' defined in class path resource [com/caretwin/config/SecurityConfig.class]: Unsatisfied dependency expressed through method 'securityFilterChain' parameter 1: No qualifying bean of type 'org.springframework.web.cors.CorsConfigurationSource' available: expected single matching bean but found 2: corsConfigurationSource,mvcHandlerMappingIntrospector
+2026-09-23T12:17:45.658+05:30  INFO 32584 --- [caretwin-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-09-23T12:17:45.682+05:30  INFO 32584 --- [caretwin-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-09-23T12:17:45.686+05:30  INFO 32584 --- [caretwin-backend] [           main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-09-23T12:17:45.688+05:30  INFO 32584 --- [caretwin-backend] [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-09-23T12:17:45.708+05:30 ERROR 32584 --- [caretwin-backend] [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 1 of method securityFilterChain in com.caretwin.config.SecurityConfig required a single bean, but 2 were found:
+	- corsConfigurationSource: defined by method 'corsConfigurationSource' in class path resource [com/caretwin/config/SecurityConfig.class]
+	- mvcHandlerMappingIntrospector: defined by method 'mvcHandlerMappingIntrospector' in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]
+
+This may be due to missing parameter name information
+
+Action:
+
+Consider marking one of the beans as @Primary, updating the consumer to accept multiple beans, or using @Qualifier to identify the bean that should be consumed
+
+Ensure that your compiler is configured to use the '-parameters' flag.
+You may need to update both your build tool settings as well as your IDE.
+(See https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-6.1-Release-Notes#parameter-name-retention)
+
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  9.401 s
+[INFO] Finished at: 2026-09-23T12:17:46+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.5.4:run (default-cli) on project caretwin-backend: Process terminated with exit code: 1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

@@ -1,0 +1,3 @@
+package com.caretwin.controller;
+import com.caretwin.model.Requests.ThreadRequest; import com.caretwin.service.DbService; import org.springframework.web.bind.annotation.*; import org.springframework.security.core.Authentication; import java.util.*;
+@RestController @RequestMapping("/api/threads") public class ThreadController {private final DbService db; public ThreadController(DbService db){this.db=db;} @GetMapping public List<Map<String,Object>> list(){return db.threads();} @PostMapping public Map<String,Object> create(@RequestBody ThreadRequest x,Authentication a){return db.createThread(x,a.getName());}}
