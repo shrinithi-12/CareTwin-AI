@@ -27,7 +27,7 @@ Healthcare staff may need to manually review previous patient records to identif
 - Recurring complaints
 - Medication changes
 - Follow-up instructions
-- Important information that needs to be continued in the next visit
+- Information that needs to be continued in the next visit
 
 This can make it difficult to quickly understand the patient's care continuity and identify the next documented care step.
 
@@ -214,3 +214,229 @@ The AI output is intended to assist healthcare staff and requires human verifica
           │   Database   │             │   Service    │
           └──────────────┘             │    :8000     │
                                        └──────────────┘
+
+The Spring Boot backend handles authentication, patient records, visits, database operations, and API access.
+
+The FastAPI service performs the care-continuity text extraction.
+
+Screenshots
+
+Screenshots of the developed application pages are provided below.
+
+Login Page
+
+Dashboard
+
+Patient Registration
+
+Patient Profile
+
+Visit Entry
+
+AI Care State
+
+Visit History
+
+Future Care Threads
+
+Note: Add the corresponding screenshots to the screenshots folder using the filenames above.
+
+Project Structure
+CareTwin_AI_Secure_fixed_v2/
+│
+├── backend/
+│   ├── src/
+│   │   └── main/
+│   │       ├── java/
+│   │       └── resources/
+│   └── pom.xml
+│
+├── frontend/
+│   ├── src/
+│   ├── package.json
+│   ├── package-lock.json
+│   └── vite.config.js
+│
+├── ai-service/
+│   ├── main.py
+│   └── requirements.txt
+│
+├── screenshots/
+│   ├── login.png
+│   ├── dashboard.png
+│   ├── patient-registration.png
+│   ├── patient-profile.png
+│   ├── visit-entry.png
+│   ├── ai-care-state.png
+│   ├── visit-history.png
+│   └── future-care-threads.png
+│
+├── START_AI.cmd
+├── START_BACKEND.cmd
+├── START_FRONTEND.cmd
+├── .gitignore
+└── README.md
+Setup and Run Instructions
+Prerequisites
+
+Install the following:
+
+Java 21
+Maven
+Node.js
+npm
+Python 3.x
+1. Start the AI Service
+
+Open Command Prompt:
+
+cd /d D:\CareTwin_AI_Secure_fixed_v2\ai-service
+
+Create a virtual environment:
+
+python -m venv .venv
+
+Activate it:
+
+.venv\Scripts\activate
+
+Install the required packages:
+
+pip install -r requirements.txt
+
+Start the AI service:
+
+python -m uvicorn main:app --port 8000
+
+The AI service runs at:
+
+http://127.0.0.1:8000
+2. Start the Backend
+
+Open another Command Prompt:
+
+cd /d D:\CareTwin_AI_Secure_fixed_v2\backend
+
+Run:
+
+mvn spring-boot:run
+
+The backend runs at:
+
+http://localhost:8080
+3. Start the Frontend
+
+Open another Command Prompt:
+
+cd /d D:\CareTwin_AI_Secure_fixed_v2\frontend
+
+Install dependencies:
+
+npm install
+
+Start the frontend:
+
+npm run dev -- --port 5174
+
+Open the application at:
+
+http://localhost:5174
+Demo Login
+
+For the local hackathon demonstration:
+
+Staff ID: staff001
+Password: CareTwin@123
+
+These credentials are intended only for the local hackathon demonstration and should not be used for a production healthcare system.
+
+Demo Flow
+Login as authorized staff.
+Register a patient.
+Open the patient profile.
+Add a visit.
+Enter a clinical visit note.
+Click Analyze with CareTwin AI.
+Review the extracted AI Care State.
+Verify the displayed information.
+Save the visit.
+Open Care Threads.
+View the documented follow-up thread.
+Example Visit Note
+Patient reports recurring headache.
+Previous medicine was stopped due to discomfort.
+Review after 7 days.
+Example Extracted Information
+Complaint: headache
+
+Medication change:
+Medication change mentioned in the visit note
+
+Follow-up:
+Review/follow-up after 7 days
+
+Follow-up date:
+Generated from the documented 7-day follow-up period
+Human Verification
+
+CareTwin AI is designed as an assistive system.
+
+The AI output is not automatically treated as a clinical decision.
+
+The healthcare staff member reviews the extracted information before it becomes verified information in the patient record.
+
+This approach keeps the healthcare professional in control of the final record.
+
+Security
+
+The prototype includes:
+
+Authenticated staff access
+Spring Security
+BCrypt password hashing
+Server-side session authentication
+Protected patient APIs
+Protected visit APIs
+Authorized access to application data
+
+This project is a local hackathon prototype and is not intended for production clinical deployment.
+
+A production system would require additional security and compliance measures such as:
+
+HTTPS
+Secure secret management
+Stronger session and cookie policies
+Encryption at rest
+Fine-grained role-based access control
+Comprehensive audit logging
+Rate limiting
+Backup and recovery
+Clinical validation
+Applicable healthcare privacy and regulatory controls
+Limitations
+
+The current prototype uses predefined keywords and linguistic patterns.
+
+Therefore, it may not recognize every possible way a healthcare professional could write the same information.
+
+The system does not perform:
+
+Disease diagnosis
+Medical prediction
+Prescription generation
+Autonomous treatment decisions
+
+The current AI component is focused on extracting documented continuity information from visit notes.
+
+Future Enhancements
+
+Future versions can include:
+
+Clinical NLP or transformer-based models
+Improved natural-language understanding
+Multilingual clinical-note support
+Larger validated clinical datasets
+Integration with existing EHR systems
+Improved recurrence detection
+Advanced audit and access-control mechanisms
+More comprehensive care-continuity tracking
