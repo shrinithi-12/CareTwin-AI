@@ -235,8 +235,6 @@ Visit Entry
 
 AI Care State
 
-Visit History
-
 Future Care Threads
 
 Project Structure
