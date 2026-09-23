@@ -1,96 +1,216 @@
-# CareTwin AI — Secure Hackathon Build
+# CareTwin AI — Patient Care Continuity System
 
-CareTwin AI is a prototype Patient Medical Record System for PS34 with an authenticated staff workflow and an AI Care Continuity layer.
+## Project Description
 
-## What is included
-- Authorized staff login using Spring Security + BCrypt + server-side session authentication.
-- Patient registration/search/profile APIs protected by authentication.
-- Visit records protected by authentication.
-- AI analysis is **not called directly from the browser**. React calls Spring Boot, Spring Boot checks authentication, then calls the FastAPI AI service.
-- AI Care State extraction: complaints, medication-change mentions, documented follow-up intention, recurrence signal, confidence and summary.
-- Human verification warning before an AI-derived state is saved.
-- Future Care Threads for documented follow-up intentions.
-- SQLite local database and audit log table.
+CareTwin AI is an AI-assisted Patient Medical Record and Care Continuity System designed to help healthcare staff identify important continuity information from patient visit notes.
 
-## Demo credentials
-- Staff ID: `staff001`
-- Password: `CareTwin@123`
+The system allows authorized staff to manage patient records, record clinical visits, and analyze visit notes to extract documented care-continuity signals such as:
 
-The default staff password is encoded with BCrypt at first startup; the plain password is not stored in the database.
+- Patient complaints
+- Medication-change mentions
+- Follow-up intentions
+- Recurring complaints
+- Follow-up dates
 
-## Architecture
+The extracted information is presented as an **AI Care State** for human verification. Verified follow-up information can be converted into a **Future Care Thread**, connecting the current visit with the patient's next care step.
 
-React :5173
-  -> authenticated session cookie
-Spring Boot :8080
-  -> authorized API
-  -> SQLite
-  -> FastAPI :8000
-FastAPI
-  -> care-continuity extraction
+CareTwin AI is an assistive prototype. It does not diagnose diseases, prescribe medicines, or replace healthcare professionals.
 
-The browser never calls FastAPI directly.
+---
 
-## Run on Windows
+## Problem Statement
 
-### 1. AI service
-```cmd
-cd /d D:\CareTwin_AI_Secure\ai-service
-python -m venv venv
-venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
-```
+Important care-continuity information can be buried inside individual patient visit notes.
 
-### 2. Backend
-Open another Command Prompt:
-```cmd
-cd /d D:\CareTwin_AI_Secure\backend
-mvn spring-boot:run
-```
+Healthcare staff may need to manually review previous patient records to identify:
 
-### 3. Frontend
-Open another Command Prompt:
-```cmd
-cd /d D:\CareTwin_AI_Secure\frontend
-npm install
-npm run dev
-```
+- Recurring complaints
+- Medication changes
+- Follow-up instructions
+- Important information that needs to be continued in the next visit
 
-Open `http://localhost:5173`.
+This can make it difficult to quickly understand the patient's care continuity and identify the next documented care step.
 
-## Demo flow
-1. Login as authorized staff.
-2. Register a patient.
-3. Open the patient profile.
-4. Add a visit.
-5. Enter: `Patient reports recurring headache. Previous medicine was stopped due to discomfort. Review after 7 days.`
-6. Click **Analyze with CareTwin AI**.
-7. Review the extracted care state and human-verification notice.
-8. Save the visit.
-9. Open Care Threads to show the documented follow-up thread.
+---
 
-## Security note
-This is a local hackathon prototype, not a production clinical system. Before real deployment, add HTTPS, secure secret management, CSRF protection appropriate to the final authentication architecture, stronger session/cookie policies, encryption at rest, least-privilege roles, audit review, rate limiting, backup/recovery, clinical validation and applicable privacy/regulatory controls.
+## Existing Solution
 
+Existing Electronic Health Record (EHR) systems store patient information, medical history, visit notes, medicines, reports, and other clinical information.
 
-## Important fixes in this build
-- Login status no longer treats Spring Security's anonymous user as an authenticated staff user.
-- The demo `staff001` account is created whenever it is missing, even if the database already contains other users.
-- React API URL can be changed with `frontend/.env` using `VITE_API_URL`.
-- Added a Vite React configuration and Windows startup scripts.
-- Logout clears the UI even if the server logout request fails.
+Some healthcare systems also provide features such as patient-history summaries and follow-up management.
 
-### Recommended startup order
-Run each command in a separate Command Prompt:
-1. `START_AI.cmd`
-2. `START_BACKEND.cmd`
-3. `START_FRONTEND.cmd`
+However, continuity-related information may still be distributed across individual visit records and require manual review to connect information from one visit to the next.
 
-Then open `http://localhost:5173`.
+---
 
-### If this is the first run
-The backend creates `caretwin.db` automatically and seeds:
-`staff001` / `CareTwin@123`
+## Proposed Solution
 
-If you previously have a broken local database, stop the backend and delete `backend/caretwin.db`, then start the backend again. The schema and demo account will be recreated.
+CareTwin AI adds a care-continuity layer to the patient record.
+
+The system analyzes a clinical visit note and extracts documented continuity signals such as:
+
+1. Patient complaints
+2. Medication changes
+3. Follow-up intentions
+4. Recurring complaints
+
+The extracted information is displayed as an **AI Care State**.
+
+A healthcare staff member reviews and verifies the extracted information before it is accepted as part of the patient's record.
+
+Documented follow-up intentions can then be represented as **Future Care Threads**, helping connect the current visit with the patient's next care step.
+
+### Core Workflow
+
+Patient Record  
+↓  
+Visit Note  
+↓  
+AI Analysis  
+↓  
+Care Continuity Signals  
+↓  
+Human Verification  
+↓  
+Verified Visit Record  
+↓  
+Future Care Thread
+
+---
+
+## Key Features
+
+### 1. Authorized Staff Login
+
+The system provides authenticated staff access using Spring Security and BCrypt-based password authentication.
+
+### 2. Patient Management
+
+Authorized staff can:
+
+- Register patients
+- Search patients
+- View patient profiles
+- View patient visit history
+
+### 3. Visit Recording
+
+Staff can add visit information and clinical notes to a patient's record.
+
+### 4. AI Care State
+
+The AI service extracts documented information from the visit note, including:
+
+- Complaints
+- Medication-change mentions
+- Follow-up intention
+- Recurrence signal
+- Confidence
+- Summary
+
+### 5. Human Verification
+
+AI-generated information is presented for human verification before being treated as verified care information.
+
+### 6. Future Care Threads
+
+A documented follow-up instruction such as:
+
+> "Review after 7 days."
+
+can be converted into a future follow-up thread associated with the patient's care journey.
+
+### 7. Local Storage
+
+The prototype uses SQLite for local application data storage.
+
+### 8. Separate AI Service
+
+The AI functionality is implemented as a separate Python FastAPI service.
+
+This allows the AI component to be developed or improved independently from the main application.
+
+---
+
+## AI Approach
+
+The current prototype uses a lightweight **rule-based NLP approach**.
+
+It does not use a pretrained large language model or external generative AI API.
+
+The Python AI service uses:
+
+- Keyword matching
+- Regular expressions
+- Previous visit-note comparison
+- Structured response generation
+
+For example, from:
+
+> "Patient reports recurring headache. Previous medicine was stopped due to discomfort. Review after 7 days."
+
+the system can extract:
+
+- Complaint: Headache
+- Medication change: Mentioned
+- Follow-up: 7 days
+- Recurrence: Based on previous visit notes
+
+The AI output is intended to assist healthcare staff and requires human verification.
+
+---
+
+## Technology Stack
+
+### Frontend
+
+- React
+- Vite
+- JavaScript
+- CSS
+
+### Backend
+
+- Java
+- Spring Boot
+- Spring Security
+- Maven
+
+### Database
+
+- SQLite
+
+### AI Service
+
+- Python
+- FastAPI
+- Pydantic
+- Regular Expressions
+- Rule-based NLP
+
+---
+
+## System Architecture
+
+```text
+                 ┌─────────────────────┐
+                 │      React UI       │
+                 │     Frontend        │
+                 │      :5174          │
+                 └──────────┬──────────┘
+                            │
+                            │ HTTP API
+                            ▼
+                 ┌─────────────────────┐
+                 │   Spring Boot       │
+                 │      Backend        │
+                 │       :8080         │
+                 └───────┬─────┬───────┘
+                         │     │
+                  ┌──────┘     └──────────────┐
+                  ▼                           ▼
+          ┌──────────────┐             ┌──────────────┐
+          │    SQLite    │             │  FastAPI AI  │
+          │   Database   │             │   Service    │
+          └──────────────┘             │    :8000     │
+                                       └──────────────┘
